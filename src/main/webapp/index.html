@@ -1,30 +1,53 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-
+<html>
 <head>
-  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
-  <title>ADC: My First Web App</title>
+    <title>ADC Individual Project - User Management</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+        h1 { color: #333; }
+        h2 { color: #666; margin-top: 30px; }
+        ul { background: #f5f5f5; padding: 20px; border-radius: 5px; }
+        li { margin: 10px 0; }
+        code { background: #e0e0e0; padding: 2px 6px; border-radius: 3px; font-family: monospace; }
+        .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; }
+    </style>
 </head>
-
 <body>
-  <h1>Welcome to this very simple web application!</h1>
+<h1>ADC Individual Project - User Management System</h1>
+<p>Server is running successfully!</p>
 
-  <table>
-    <tr>
-      <td colspan="2" style="font-weight:bold;">Available Services:</td>
-    </tr>
-    <tr>
-      <td><a href='/rest/utils/hello'>Say Hello!</a></td>
-      <td>(greetings)</td>
-    </tr>
-    <tr>
-      <td><a href='/rest/utils/time'>What time is it?</a></td>
-      <td>(see server time)</td>
-    </tr>
-  </table>
+<h2>Available REST Endpoints</h2>
+<ul>
+    <li><code>POST /rest/createaccount</code> - Create a new user account</li>
+    <li><code>POST /rest/login</code> - Login and receive JWT cookie</li>
+    <li><code>POST /rest/showusers</code> - List all users (ADMIN/BOFFICER only)</li>
+    <li><code>POST /rest/deleteaccount</code> - Delete a user account (ADMIN only)</li>
+    <li><code>POST /rest/modifyaccount</code> - Modify user attributes</li>
+    <li><code>POST /rest/showsessions</code> - Show active sessions (ADMIN only)</li>
+    <li><code>POST /rest/showuserrole</code> - Show user role (ADMIN/BOFFICER only)</li>
+    <li><code>POST /rest/changerole</code> - Change user role (ADMIN only)</li>
+    <li><code>POST /rest/changepassword</code> - Change your password</li>
+    <li><code>POST /rest/logout</code> - Logout and invalidate session</li>
+</ul>
+
+<div class="note">
+    <strong>Note:</strong> All endpoints require authentication except <code>/createaccount</code> and <code>/login</code>.<br>
+    Authentication is handled via <strong>HttpOnly cookie</strong> named <code>session::adc</code> containing JWT.<br>
+    Use Postman or curl to test these endpoints.
+</div>
+
+<h2>Testing with curl</h2>
+<ul>
+    <li><strong>Create a user:</strong><br>
+        <code>curl -X POST http://localhost:8080/rest/createaccount -H "Content-Type: application/json" -d "{\"input\":{\"username\":\"user@test.com\",\"password\":\"pass123\",\"confirmation\":\"pass123\",\"phone\":\"123456789\",\"address\":\"123 Main St\",\"role\":\"USER\"}}"</code></li>
+
+    <li><strong>Login:</strong><br>
+        <code>curl -X POST http://localhost:8080/rest/login -H "Content-Type: application/json" -d "{\"username\":\"user@test.com\",\"password\":\"pass123\"}" -v</code></li>
+
+    <li><strong>Show users (with cookie from login):</strong><br>
+        <code>curl -X POST http://localhost:8080/rest/showusers --cookie "session::adc=YOUR_TOKEN"</code></li>
+</ul>
+
+<p><em>Project built with Jersey (JAX-RS) and Google App Engine</em></p>
 </body>
-<footer>
-  Copyright: ADC-PEI, FCT NOVA 2026
-</footer>
-
 </html>
