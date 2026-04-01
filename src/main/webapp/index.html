@@ -36,18 +36,6 @@
     Use Postman or curl to test these endpoints.
 </div>
 
-<h2>Testing with curl</h2>
-<ul>
-    <li><strong>Create a user:</strong><br>
-        <code>curl -X POST http://localhost:8080/rest/createaccount -H "Content-Type: application/json" -d "{\"input\":{\"username\":\"user@test.com\",\"password\":\"pass123\",\"confirmation\":\"pass123\",\"phone\":\"123456789\",\"address\":\"123 Main St\",\"role\":\"USER\"}}"</code></li>
-
-    <li><strong>Login:</strong><br>
-        <code>curl -X POST http://localhost:8080/rest/login -H "Content-Type: application/json" -d "{\"username\":\"user@test.com\",\"password\":\"pass123\"}" -v</code></li>
-
-    <li><strong>Show users (with cookie from login):</strong><br>
-        <code>curl -X POST http://localhost:8080/rest/showusers --cookie "session::adc=YOUR_TOKEN"</code></li>
-</ul>
-
 <p><em>Project built with Jersey (JAX-RS) and Google App Engine</em></p>
 </body>
 </html>
